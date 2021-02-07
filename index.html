@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <div class="card" style="width: auto;">
+                <div class="card" style="width: auto">
                     <div class="card-header">Search for a City or Zip Code:</div>
                     <form>
                         <div class="form-row">
@@ -50,15 +50,40 @@
                     </ul>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <p class="city"><img class="icon"></p>
-                    <p class="temperature"></p>
-                    <p class="humidity"></p>
-                    <p class="wind"></p>
-                    <p class="uv-index-text"></p>
+            <div id="results" class="col hide">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: auto">
+                            <p class="city"><img class="icon"></p>
+                            <p class="temperature"></p>
+                            <p class="humidity"></p>
+                            <p class="wind"></p>
+                            <p class="uv-index-text"></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card"><h4>5-Day Forecast:</h4>
+                <h5>5-Day Forecast:</h5>
+                <div class="row" id="five-day-forecast">
+                    <!-- <div class="col">
+                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 1</h4>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 2</h4>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 3</h4>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 4</h4>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 5</h4>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
