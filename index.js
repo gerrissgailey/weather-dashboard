@@ -2,6 +2,7 @@
 var citySearchInput = document.getElementById("city-search-input");
 var citySearchBtn = document.getElementById("city-search-btn");
 var recordSearch = [];
+var displayPreviousSearch = "";
 var clearSearch = document.getElementById("clear-search");
 var clearSearchBtn = document.getElementById("clear-search-btn");
 var currentWeather = document.getElementById("current-weather");
@@ -15,24 +16,29 @@ init();
 // City Search button, search weather for entered city
 citySearchBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    removeAllChildNodes(previousSearch);
+    removeAllChildNodes(fiveDayForecast);
     citySearchInput = document.querySelector("#city-search-input").value;
     console.log(citySearchInput);
 
-    // Create object to push into recordSearch array
+    // Create object to push into recordSearch array for localStorage
     var searchInputObject = {
         citySearchInput: citySearchInput
     };
 
-    // Array to hold previous search objects
+    // Array to hold previous search objects for localStorage
     recordSearch.push(searchInputObject);
 
     // Sets recordSearch to localStorage
     localStorage.setItem("citySearchInput", JSON.stringify(recordSearch));
+    init();
+    renderPreviousSearch();
     callWeatherAPI();
     results.setAttribute("class", "show");
 });
 
-// Get localStorage items to display Previous Searches??
+
+// Get localStorage items to display Previous Searches
 function init() {
     var previousSearch = JSON.parse(localStorage.getItem("citySearchInput"));
     console.log(previousSearch);
@@ -42,14 +48,15 @@ function init() {
     }
 }
 
+// Render localStorage items to page
 function renderPreviousSearch() {
+    displayPreviousSearch = ""
 
     // Render a new li for each previous search
     for (let i = 0; i < recordSearch.length; i++) {
-        var displayPreviousSearch = ""
         displayPreviousSearch = recordSearch[i];
         console.log(displayPreviousSearch);
-        $("#previous-search").append(`
+        $("#previous-search").prepend(`
             <li class="list-group-item">${displayPreviousSearch.citySearchInput}</li>    
         `)
     }
@@ -156,19 +163,23 @@ function callWeatherAPI() {
     })
 }
 
-
+// Function to remove template literal generated li child nodes from ul elements
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
 
+// Variables to be passed through removeAllChildNodes function
 const previousSearch = document.querySelector('#previous-search');
+const fiveDayForecast = document.querySelector("#five-day-forecast");
 
+// Event listener to clear localStorage
 clearSearchBtn.addEventListener("click", function(event) {
     event.preventDefault();
     localStorage.clear();
     removeAllChildNodes(previousSearch);
+    recordSearch = [];
     clearSearch.setAttribute("class", "hide");
 })
 
