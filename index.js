@@ -1,29 +1,64 @@
 // Declare Variables
 var citySearchInput = document.getElementById("city-search-input");
 var citySearchBtn = document.getElementById("city-search-btn");
+var recordSearch = [];
+var clearSearch = document.getElementById("clear-search");
+var clearSearchBtn = document.getElementById("clear-search-btn");
 var currentWeather = document.getElementById("current-weather");
 var results = document.getElementById("results");
 var todaysDate = moment().format("dddd, MMMM Do gggg")
 
-// Get localStorage items and display to Previous Searches??
 
+// Initialize from localStorage
+init();
 
 // City Search button, search weather for entered city
 citySearchBtn.addEventListener("click", function (event) {
     event.preventDefault();
     citySearchInput = document.querySelector("#city-search-input").value;
     console.log(citySearchInput);
+
+    // Create object to push into recordSearch array
+    var searchInputObject = {
+        citySearchInput: citySearchInput
+    };
+
+    // Array to hold previous search objects
+    recordSearch.push(searchInputObject);
+
+    // Sets recordSearch to localStorage
+    localStorage.setItem("citySearchInput", JSON.stringify(recordSearch));
     callWeatherAPI();
     results.setAttribute("class", "show");
 });
 
+// Get localStorage items to display Previous Searches??
+function init() {
+    var previousSearch = JSON.parse(localStorage.getItem("citySearchInput"));
+    console.log(previousSearch);
+    if(previousSearch) {
+        recordSearch = previousSearch;   
+        clearSearch.setAttribute("class", "show");
+    }
+}
+
+function renderPreviousSearch() {
+
+    // Render a new li for each previous search
+    for (let i = 0; i < recordSearch.length; i++) {
+        var displayPreviousSearch = ""
+        displayPreviousSearch = recordSearch[i];
+        console.log(displayPreviousSearch);
+        $("#previous-search").append(`
+            <li class="list-group-item">${displayPreviousSearch.citySearchInput}</li>    
+        `)
+    }
+}
+
 // Get weather data from OpenWeatherMap API
 function callWeatherAPI() {
     // OpenWeatherMap API key
-    var apiKey = "d29d008cc6758b9c3331c9b67c570a62"
-
-    // User response variables??
-    
+    var apiKey = "d29d008cc6758b9c3331c9b67c570a62"    
 
     // OpenWeatherMap - Current Weather Data API
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearchInput + ",us&appid=" + apiKey + "&units=imperial";
@@ -121,4 +156,21 @@ function callWeatherAPI() {
     })
 }
 
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+const previousSearch = document.querySelector('#previous-search');
+
+clearSearchBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    localStorage.clear();
+    removeAllChildNodes(previousSearch);
+    clearSearch.setAttribute("class", "hide");
+})
+
+renderPreviousSearch();
 // Need to see if there is a way to clear the array for the 5 day forecast. It currently stacks up on itself if you search for two cities in a row.
