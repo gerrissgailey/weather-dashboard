@@ -11,17 +11,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-      <div class="container">
-          <nav class="navbar navbar-light bg-secondary">
-              <div class="navbar-nav mx-auto">
-                  <span class="navbar-brand mb-0 h1 text-light">Weather Dashboard</span>
-              </div>
-          </nav>
-      </div>
+    <div class="container-fluid">
+        <nav class="navbar navbar-light bg-secondary">
+            <div class="navbar-nav mx-auto">
+                <span class="navbar-brand mb-0 h1 text-light">Weather Dashboard</span>
+            </div>
+        </nav>
+    </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="card" style="width: auto">
                     <div class="card-header">Search for a City or Zip Code:</div>
                     <form>
@@ -31,7 +31,7 @@
                                 <input type="text" class="form-control my-2 ml-1" id="city-search-input" placeholder="City">
                             </div>
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary my-2" id="city-search-btn">Search</button>
+                                <button type="submit" class="btn btn-primary my-2 mx-1" id="city-search-btn">Search</button>
                             </div>
                         </div>
                     </form>
@@ -45,40 +45,22 @@
                     </div>
                 </div>
             </div>
-            <div id="results" class="col hide">
+            <div id="results" class="col-auto hide">
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <p class="city"><img class="icon"></p>
-                            <p class="temperature"></p>
-                            <p class="humidity"></p>
-                            <p class="wind"></p>
-                            <p class="uv-index-text"></p>
+                            <div class="card-body">
+                                <p class="city"><img class="icon"></p>
+                                <p class="temperature"></p>
+                                <p class="humidity"></p>
+                                <p class="wind"></p>
+                                <p class="uv-index-text"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <h5>5-Day Forecast:</h5>
-                <div class="row" id="five-day-forecast">
-                    <!-- <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 1</h4>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 2</h4>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 3</h4>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 4</h4>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto"><h4>Day 5</h4>
-                        </div>
-                    </div> -->
+                <div class="row no-gutters px-3" id="five-day-forecast">
                 </div>
             </div>
         </div>

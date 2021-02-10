@@ -3,6 +3,7 @@ var citySearchInput = document.getElementById("city-search-input");
 var citySearchBtn = document.getElementById("city-search-btn");
 var recordSearch = [];
 var displayPreviousSearch = "";
+
 var clearSearch = document.getElementById("clear-search");
 var clearSearchBtn = document.getElementById("clear-search-btn");
 var currentWeather = document.getElementById("current-weather");
@@ -57,10 +58,21 @@ function renderPreviousSearch() {
         displayPreviousSearch = recordSearch[i];
         console.log(displayPreviousSearch);
         $("#previous-search").prepend(`
-            <li class="list-group-item">${displayPreviousSearch.citySearchInput}</li>    
+            <li class="list-group-item">
+                <button class="history-btn btn btn-secondary btn-block">${displayPreviousSearch.citySearchInput}</button>
+            </li>    
         `)
     }
+    $(".history-btn").on("click", function() {
+        var inner = this.innerHTML;
+        console.log(inner);
+        removeAllChildNodes(fiveDayForecast);
+        citySearchInput = inner;
+        callWeatherAPI();
+        results.setAttribute("class", "show");
+    })
 }
+
 
 // Get weather data from OpenWeatherMap API
 function callWeatherAPI() {
@@ -145,14 +157,16 @@ function callWeatherAPI() {
                 
                 // Append the 5-Day Forecast API responses to page
                 $("#five-day-forecast").append(`
-                    <div class="col">
-                        <div class="card text-white bg-primary" style="width: auto">
-                            <ul class="list-unstyled">
-                                <li>${dateObject}</li>
-                                <li><img src='${iconUrl2}'></li>
-                                <li>Temp: ${temperature5Day} &deg;F</li>
-                                <li>Humidity: ${humidity5Day}%</li>
-                            </ul>
+                    <div class="col-auto">
+                        <div class="card text-white bg-primary mx-1">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li>${dateObject}</li>
+                                    <li><img src='${iconUrl2}'></li>
+                                    <li>Temp: ${temperature5Day} &deg;F</li>
+                                    <li>Humidity: ${humidity5Day}%</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 `)

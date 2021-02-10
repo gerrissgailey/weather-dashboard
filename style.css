@@ -23,3 +23,11 @@
     padding: 5px;
     border-radius: 5px;
 }
+
+.smaller-text {
+    font-size:12px;
+}
+
+.larger-text {
+    font-size:18px;
+}
